@@ -8,7 +8,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Title>Cardboard Box - Database</Title>
 		<Authors>Cardboard</Authors>
-		<Version>2.0.3</Version>
+		<Version>2.0.4</Version>
 		<Description>A wrapper around Dapper that provides easy of use when switching between Database engines.
 Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
 Works as a progressive replacement to EF.</Description>
@@ -21,6 +21,7 @@ Works as a progressive replacement to EF.</Description>
 * CreateConnection is now asynchronous to allow for tasks to be run on first load of the connection.</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/calico-crusade/cardboardbox-database</PackageProjectUrl>
 		<Copyright>MIT Licensed</Copyright>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

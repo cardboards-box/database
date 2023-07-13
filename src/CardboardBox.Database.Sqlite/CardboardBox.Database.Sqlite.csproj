@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Title>Cardboard Box - Database SQLite</Title>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Authors>Cardboard</Authors>
 		<Description>
 			A wrapper around Dapper and Sqlite that provides easy of use when using Sqlite
@@ -21,6 +21,7 @@
 		<RepositoryUrl>https://github.com/calico-crusade/cardboardbox-database</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Dapper;Sqlite;cardboardbox;sql</PackageTags>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
