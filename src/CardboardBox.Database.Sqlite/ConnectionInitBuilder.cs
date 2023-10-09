@@ -1,5 +1,6 @@
 ﻿namespace CardboardBox.Database.Sqlite;
 
+using Migrations;
 
 using ConnectAction = Func<SqliteConnection, Task>;
 
@@ -21,6 +22,13 @@ public interface IConnectionInitBuilder
 	/// <param name="action">The action to perform</param>
 	/// <returns>The current builder for chaining</returns>
 	IConnectionInitBuilder OnInit(ConnectAction action);
+
+    /// <summary>
+    /// Executes the database manifest on the first connection
+    /// </summary>
+	/// <param name="workingDir">The working directory to find the scripts</param>
+    /// <returns>The current builder for chaining</returns>
+    IConnectionInitBuilder DeployManifest(string? workingDir = null);
 }
 
 /// <summary>
@@ -57,12 +65,22 @@ public class ConnectionInitBuilder : IConnectionInitProvider
 	/// </summary>
 	public ConnectAction[] InitialRun => _initRun.ToArray();
 
-	/// <summary>
-	/// Action that is executed every time a new SQL connection is opened.
-	/// </summary>
-	/// <param name="action">The action to perform</param>
-	/// <returns>The current builder for chaining</returns>
-	public IConnectionInitBuilder OnConnect(ConnectAction action)
+    /// <summary>
+    /// Executes the database manifest on the first connection
+    /// </summary>
+	/// <param name="workingDir">The working directory to find the scripts</param>
+    /// <returns>The current builder for chaining</returns>
+    public IConnectionInitBuilder DeployManifest(string? workingDir = null)
+    {
+        return OnInit(con => new DatabaseDeploy(con, workingDir).ExecuteScripts());
+    }
+
+    /// <summary>
+    /// Action that is executed every time a new SQL connection is opened.
+    /// </summary>
+    /// <param name="action">The action to perform</param>
+    /// <returns>The current builder for chaining</returns>
+    public IConnectionInitBuilder OnConnect(ConnectAction action)
 	{
 		_connect.Add(action);
 		return this;
