@@ -51,3 +51,11 @@ jobs:
           PROJECT_FILE_PATH: src/CardboardBox.Database.Sqlite/CardboardBox.Database.Sqlite.csproj
           TAG_COMMIT: true
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          
+      - name: Publish Database Postgres Standard Nuget Package
+        id: publish_nuget_database_postgres_standard
+        uses: alirezanet/publish-nuget@v3.0.4
+        with:
+          PROJECT_FILE_PATH: src/CardboardBox.Database.Postgres.Standard/CardboardBox.Database.Postgres.Standard.csproj
+          TAG_COMMIT: true
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
