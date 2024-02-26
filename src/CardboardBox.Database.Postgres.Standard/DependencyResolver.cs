@@ -66,6 +66,27 @@ public interface IDependencyResolver
     IDependencyResolver JsonModel<T>();
 
     /// <summary>
+    /// Adds a Dapper convention for handling custom mappings
+    /// </summary>
+    /// <param name="mapping">The mapping to register</param>
+    /// <returns></returns>
+    IDependencyResolver Mapping(Action<ITypeMapBuilder> mapping);
+
+    /// <summary>
+    /// Adds a Dapper convention for handling custom model conventions
+    /// </summary>
+    /// <param name="convention">The convention to register</param>
+    /// <returns></returns>
+    IDependencyResolver Convention(Action<IConventionBuilder> convention);
+
+    /// <summary>
+    /// Adds a way of manipulating the Postgres Data Source Builder
+    /// </summary>
+    /// <param name="connections">The manipulator</param>
+    /// <returns></returns>
+    IDependencyResolver Connections(Action<NpgsqlDataSourceBuilder> connections);
+
+    /// <summary>
     /// Adds a transient service to the dependency resolver
     /// </summary>
     /// <typeparam name="TService">The interface for the service</typeparam>
@@ -137,19 +158,34 @@ internal class DependencyResolver : IDependencyResolver
 
     public IDependencyResolver Model<T>()
     {
-        _conventions.Add(x => x.Entity<T>());
-        return this;
+        return Convention(x => x.Entity<T>());
     }
 
     public IDependencyResolver Type<T>(string? name = null)
     {
-        _connections.Add(x => x.MapComposite<T>(name));
-        return this;
+        return Connections(x => x.MapComposite<T>(name));
     }
 
     public IDependencyResolver JsonModel<T>(Func<T> @default)
     {
-        _dbMapping.Add(x => x.DefaultJsonHandler(@default));
+        return Mapping(x => x.DefaultJsonHandler(@default));
+    }
+
+    public IDependencyResolver Connections(Action<NpgsqlDataSourceBuilder> connections)
+    {
+        _connections.Add(connections);
+        return this;
+    }
+
+    public IDependencyResolver Mapping(Action<ITypeMapBuilder> mapping)
+    {
+        _dbMapping.Add(mapping);
+        return this;
+    }
+
+    public IDependencyResolver Convention(Action<IConventionBuilder> convention)
+    {
+        _conventions.Add(convention);
         return this;
     }
 

@@ -14,12 +14,16 @@ public static class Extensions
     /// <param name="services">The service collection to attach to</param>
     /// <param name="config">The configuration for the application</param>
     /// <param name="configure">The configuration action for the application services</param>
+    /// <param name="assemblies">The assemblies to scan for types</param>
     /// <returns></returns>
-    public static Task AddServices(this IServiceCollection services, IConfiguration config, Action<IDependencyResolver> configure)
+    public static Task AddServices(this IServiceCollection services, IConfiguration config, Action<IDependencyResolver> configure, params Assembly[] assemblies)
     {
+        if (assemblies.Length == 0)
+            assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
         var bob = new DependencyResolver();
         configure(bob
-            .RegisterModels()
+            .RegisterModels(assemblies)
             .Transient<IOrmService, OrmService>());
         return bob.Build(services, config);
     }
@@ -27,15 +31,16 @@ public static class Extensions
     /// <summary>
     /// Registers all class types with the given attributes:
     /// <see cref="CompositeAttribute"/>, <see cref="TableAttribute"/>, <see cref="TypeAttribute"/>
-    /// This is handled automatically if you use <see cref="AddServices(IServiceCollection, IConfiguration, Action{IDependencyResolver})"/>
+    /// This is handled automatically if you use <see cref="AddServices(IServiceCollection, IConfiguration, Action{IDependencyResolver}, Assembly[])"/>
     /// </summary>
     /// <param name="resolver">The dependency resolve to attach to</param>
+    /// <param name="assemblies">The assemblies to scan for types</param>
     /// <returns>The dependency resolver for chaining</returns>
-    public static IDependencyResolver RegisterModels(this IDependencyResolver resolver)
+    public static IDependencyResolver RegisterModels(this IDependencyResolver resolver, params Assembly[] assemblies)
     {
         var modelAttributes = new[] { typeof(CompositeAttribute), typeof(TableAttribute) };
 
-        var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(t => t.GetTypes());
+        var types = assemblies.SelectMany(t => t.GetTypes());
 
         var resolverType = typeof(DependencyResolver);
         var registerModel = resolverType.GetMethod(nameof(DependencyResolver.Model));

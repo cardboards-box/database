@@ -28,7 +28,7 @@ public interface ISqlService
 	Task<T?> Fetch<T>(string query, object? parameters = null, int? timeout = null, IDbTransaction? transaction = null);
 
 	/// <summary>
-	/// Fetches mutliple records from the database
+	/// Fetches multiple records from the database
 	/// </summary>
 	/// <typeparam name="T">The type to map the record to</typeparam>
 	/// <param name="query">The query to run to fetch the records</param>
@@ -141,7 +141,7 @@ public abstract class SqlService : ISqlService
 	}
 
 	/// <summary>
-	/// Fetches mutliple records from the database
+	/// Fetches multiple records from the database
 	/// </summary>
 	/// <typeparam name="T">The type to map the record to</typeparam>
 	/// <param name="query">The query to run to fetch the records</param>
