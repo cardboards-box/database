@@ -46,6 +46,13 @@ public interface ITypeMapBuilder
 	ITypeMapBuilder PolyfillDateTimeHandler();
 
 	/// <summary>
+	/// Adds the ability to handle the specified Enum
+	/// </summary>
+	/// <typeparam name="T">The type of enum</typeparam>
+	/// <returns>The current builder for chaining</returns>
+	ITypeMapBuilder HandleEnum<T>() where T : struct, Enum;
+
+	/// <summary>
 	/// Adds a handler for serializing a generic array to string
 	/// </summary>
 	/// <typeparam name="T">The type of generic array</typeparam>
@@ -73,6 +80,12 @@ public interface ITypeMapBuilder
 	/// <param name="default">How to create a default object</param>
 	/// <returns>The current builder for chaining</returns>
 	ITypeMapBuilder DefaultJsonHandler<T>(Func<T> @default);
+
+	/// <summary>
+	/// Polyfills the handling of <see cref="Guid"/> arrays
+	/// </summary>
+	/// <returns>The current builder for chaining</returns>
+	ITypeMapBuilder PolyfillGuidArrays();
 }
 
 /// <summary>
@@ -154,6 +167,12 @@ public class TypeMapBuilder : ITypeMapBuilder
 			.TypeHandler<DateTime?, NullableDateTimeHandler>();
 	}
 
+    /// <summary>
+    /// Polyfills the handling of <see cref="Guid"/> arrays
+    /// </summary>
+    /// <returns>The current builder for chaining</returns>
+    public ITypeMapBuilder PolyfillGuidArrays() => TypeHandler<Guid[], GuidArrayHandler>();
+
 	/// <summary>
 	/// Adds a handler for serializing a generic array to string
 	/// </summary>
@@ -183,8 +202,15 @@ public class TypeMapBuilder : ITypeMapBuilder
 	/// <returns>The current builder for chaining</returns>
 	public ITypeMapBuilder DefaultJsonHandler<T>(Func<T> @default) => TypeHandler(new DefaultJsonHandler<T>(@default));
 
+    /// <summary>
+    /// Adds the ability to handle the specified Enum
+    /// </summary>
+    /// <typeparam name="T">The type of enum</typeparam>
+    /// <returns>The current builder for chaining</returns>
+    public ITypeMapBuilder HandleEnum<T>() where T : struct, Enum => TypeHandler<T, EnumHandler<T>>();
+
 	/// <summary>
-	/// Intiailizes the Dapper Fluent Map
+	/// Initializes the Dapper Fluent Map
 	/// </summary>
 	public void Init()
 	{

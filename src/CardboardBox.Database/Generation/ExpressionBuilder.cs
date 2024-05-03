@@ -30,7 +30,7 @@ public interface IExpressionBuilder<T> : IPropertyBinder<T>
 	IExpressionBuilder<T> With<TProp>(Expression<Func<T, TProp>> property);
 
 	/// <summary>
-	/// Appens the target property to the expression builder with the complex query options specified
+	/// Appends the target property to the expression builder with the complex query options specified
 	/// </summary>
 	/// <typeparam name="TProp">The type of property that is being resolved</typeparam>
 	/// <param name="property">The property that is being resolved</param>
@@ -68,7 +68,7 @@ public class ExpressionBuilder<T> : IExpressionBuilder<T>, IPropertyBinder<T>
 	public ReflectedType Type { get; }
 
 	/// <summary>
-	/// The outputed expressions
+	/// The outputted expressions
 	/// </summary>
 	public List<PropValue> Properties { get; } = new();
 
@@ -90,7 +90,7 @@ public class ExpressionBuilder<T> : IExpressionBuilder<T>, IPropertyBinder<T>
 	public IExpressionBuilder<T> With<TProp>(Expression<Func<T, TProp>> property) => Exp(property);
 
 	/// <summary>
-	/// Appens the target property to the expression builder with the complex query options specified
+	/// Appends the target property to the expression builder with the complex query options specified
 	/// </summary>
 	/// <typeparam name="TProp">The type of property that is being resolved</typeparam>
 	/// <param name="property">The property that is being resolved</param>
