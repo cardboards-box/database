@@ -7,11 +7,13 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Title>Cardboard Box - Database Postgres</Title>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<Authors>Cardboard</Authors>
-		<Description>A wrapper around Dapper and Npgsql that provides easy of use when using Postgres
-Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
-Works as a progressive replacement to EF.</Description>
+		<Description>
+			A wrapper around Dapper and Npgsql that provides easy of use when using Postgres
+			Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
+			Works as a progressive replacement to EF.
+		</Description>
 		<Copyright>MIT Licensed</Copyright>
 		<PackageProjectUrl>https://github.com/calico-crusade/cardboardbox-database</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
@@ -23,7 +25,7 @@ Works as a progressive replacement to EF.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Npgsql" Version="7.0.2" />
+		<PackageReference Include="Npgsql" Version="8.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>

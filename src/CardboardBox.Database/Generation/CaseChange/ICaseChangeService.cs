@@ -1,7 +1,7 @@
 ﻿namespace CardboardBox.Database.Generation;
 
 /// <summary>
-/// An overrideable service that allows for changing the case (Snake, Pascal, None) of columns and database fields
+/// An overridable service that allows for changing the case (Snake, Pascal, None) of columns and database fields
 /// </summary>
 public interface ICaseChangeService
 {

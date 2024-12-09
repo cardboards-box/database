@@ -1,7 +1,8 @@
-﻿using CardboardBox.Database.Generation.CaseChange;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace CardboardBox.Database.Generation;
+
+using CaseChange;
 
 /// <summary>
 /// A helpful builder that allows for customizing how the query generation service works
@@ -66,30 +67,25 @@ public interface IDependencyBuilder
 /// <summary>
 /// A helpful builder that allows for customizing how the query generation service works
 /// </summary>
-public class DependencyBuilder : IDependencyBuilder
+/// <remarks>
+/// A helpful builder that allows for customizing how the query generation service works
+/// </remarks>
+/// <param name="services">The service collection to inject the services into</param>
+public class DependencyBuilder(IServiceCollection services) : IDependencyBuilder
 {
-	private readonly IServiceCollection _services;
+	private readonly IServiceCollection _services = services;
 	private bool _queryConfig = false;
 	private bool _caseChange = false;
 	private bool _queryGen = false;
 	private bool _querySrv = false;
-	private bool _refelcted = false;
+	private bool _reflected = false;
 
-	/// <summary>
-	/// A helpful builder that allows for customizing how the query generation service works
-	/// </summary>
-	/// <param name="services">The service collection to inject the services into</param>
-	public DependencyBuilder(IServiceCollection services)
-	{
-		_services = services;
-	}
-
-	/// <summary>
-	/// Adds a custom <see cref="IQueryConfigProvider"/>
-	/// </summary>
-	/// <typeparam name="T">The concrete implementation of the <see cref="IQueryConfigProvider"/></typeparam>
-	/// <returns>The current builder for chaining</returns>
-	public IDependencyBuilder WithConfig<T>() where T : class, IQueryConfigProvider
+    /// <summary>
+    /// Adds a custom <see cref="IQueryConfigProvider"/>
+    /// </summary>
+    /// <typeparam name="T">The concrete implementation of the <see cref="IQueryConfigProvider"/></typeparam>
+    /// <returns>The current builder for chaining</returns>
+    public IDependencyBuilder WithConfig<T>() where T : class, IQueryConfigProvider
 	{
 		_services.AddTransient<IQueryConfigProvider, T>();
 		_queryConfig = true;
@@ -164,7 +160,7 @@ public class DependencyBuilder : IDependencyBuilder
 	public IDependencyBuilder WithReflection<T>() where T : class, IReflectedService
 	{
 		_services.AddTransient<IReflectedService, T>();
-		_refelcted = true;
+		_reflected = true;
 		return this;
 	}
 
@@ -177,6 +173,6 @@ public class DependencyBuilder : IDependencyBuilder
 		if (!_caseChange) WithCaseChange<NullCaseChangeService>();
 		if (!_queryGen) WithQueryGen<QueryGenerationService>();
 		if (!_querySrv) WithQueryBuilder<QueryService>();
-		if (!_refelcted) WithReflection<ReflectedService>();
+		if (!_reflected) WithReflection<ReflectedService>();
 	}
 }

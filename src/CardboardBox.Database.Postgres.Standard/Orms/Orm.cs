@@ -1,20 +1,23 @@
-﻿namespace CardboardBox.Database.Postgres.Standard.Orms;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CardboardBox.Database.Postgres.Standard.Orms;
 
 /// <summary>
 /// Represents an ORM for database objects
 /// </summary>
 /// <typeparam name="T">The table type</typeparam>
-public abstract class Orm<T> : IOrmMap<T> where T : DbObject
+/// <param name="_orm">The ORM service</param>
+public abstract class Orm<T>(IOrmService _orm) : IOrmMap<T> where T : DbObject
 {
-    private readonly IOrmService _orm;
-
     /// <summary>
     /// The query service for the ORM
     /// </summary>
+    [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Expected")]
     public IQueryService _query => _orm.Query;
     /// <summary>
     /// The SQL service for the ORM
     /// </summary>
+    [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Expected")]
     public ISqlService _sql => _orm.Sql;
 
     /// <summary>
@@ -28,15 +31,6 @@ public abstract class Orm<T> : IOrmMap<T> where T : DbObject
     public IOrmMapQueryable<T> Map => _orm.For<T>();
 
     /// <summary>
-    /// The default CTOR
-    /// </summary>
-    /// <param name="orm">The ORM service</param>
-    public Orm(IOrmService orm)
-    {
-        _orm = orm;
-    }
-
-    /// <summary>
     /// Fetches a single record from the database
     /// </summary>
     /// <param name="query">The query to run to fetch the record</param>
@@ -45,7 +39,7 @@ public abstract class Orm<T> : IOrmMap<T> where T : DbObject
     public virtual Task<T?> Fetch(string query, object? param = null) => _sql.Fetch<T>(query, param);
 
     /// <summary>
-    /// Fetches mutliple records from the database
+    /// Fetches multiple records from the database
     /// </summary>
     /// <param name="query">The query to run to fetch the records</param>
     /// <param name="param">The parameters to run the query with</param>
@@ -67,7 +61,7 @@ public abstract class Orm<T> : IOrmMap<T> where T : DbObject
     /// <param name="query">The query to execute</param>
     /// <param name="param">The parameters to run the query with</param>
     /// <returns>The return result of the query</returns>
-    public virtual Task<T1> Execute<T1>(string query, object? param = null) => _sql.ExecuteScalar<T1>(query, param);
+    public virtual Task<T1?> Execute<T1>(string query, object? param = null) => _sql.ExecuteScalar<T1>(query, param);
 
     /// <summary>
     /// Fetches a single item from the database
@@ -137,7 +131,7 @@ public abstract class Orm<T> : IOrmMap<T> where T : DbObject
     /// <summary>
     /// Gets the number of records in the current table
     /// </summary>
-    /// <returns>The numerb of records in the table</returns>
+    /// <returns>The number of records in the table</returns>
     public virtual Task<int> Count() => Map.Count();
 
     /// <summary>

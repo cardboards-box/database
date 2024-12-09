@@ -70,7 +70,7 @@ public interface IOrmMap<T> where T : DbObject
     /// <summary>
     /// Gets the number of records in the current table
     /// </summary>
-    /// <returns>The numerb of records in the table</returns>
+    /// <returns>The number of records in the table</returns>
     Task<int> Count();
 }
 
@@ -133,7 +133,14 @@ public interface IOrmMapQueryable<T> : IOrmMap<T> where T : DbObject
 /// Implementation of the <see cref="IOrmMap{T}"/>
 /// </summary>
 /// <typeparam name="T">The type of object represented in the database</typeparam>
-public class OrmMap<T> : IOrmMapQueryable<T> where T : DbObject
+/// <remarks>
+/// Implementation of the <see cref="IOrmMap{T}"/>
+/// </remarks>
+/// <param name="query">The service to generate queries</param>
+/// <param name="sql">The service that executes SQL queries</param>
+public class OrmMap<T>(
+    IQueryService query,
+    ISqlService sql) : IOrmMapQueryable<T> where T : DbObject
 {
     #region Query Cache
     private static string? _fetchQuery;
@@ -149,24 +156,11 @@ public class OrmMap<T> : IOrmMapQueryable<T> where T : DbObject
     /// <summary>
     /// The service to generate queries
     /// </summary>
-    public readonly IQueryService _query;
+    public readonly IQueryService _query = query;
     /// <summary>
     /// The service that executes SQL queries
     /// </summary>
-    public readonly ISqlService _sql;
-
-    /// <summary>
-    /// Implementation of the <see cref="IOrmMap{T}"/>
-    /// </summary>
-    /// <param name="query">The service to generate queries</param>
-    /// <param name="sql">The service that executes SQL queries</param>
-    public OrmMap(
-        IQueryService query,
-        ISqlService sql)
-    {
-        _query = query;
-        _sql = sql;
-    }
+    public readonly ISqlService _sql = sql;
 
     #region Query Builders
     /// <summary>
@@ -335,7 +329,7 @@ public class OrmMap<T> : IOrmMapQueryable<T> where T : DbObject
     /// <summary>
     /// Gets the number of records in the current table
     /// </summary>
-    /// <returns>The numerb of records in the table</returns>
+    /// <returns>The number of records in the table</returns>
     public virtual Task<int> Count()
     {
         if (string.IsNullOrWhiteSpace(_countQuery))

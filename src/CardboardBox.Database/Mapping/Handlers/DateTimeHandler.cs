@@ -6,7 +6,7 @@
 /// </summary>
 public class DateTimeHandler : SqlMapper.TypeHandler<DateTime>
 {
-	private static readonly DateTime unixOrigin = new(1970, 1, 1, 0, 0, 0, 0);
+	internal static readonly DateTime UnixOrigin = new(1970, 1, 1, 0, 0, 0, 0);
 
 	/// <summary>
 	/// Parses the input value into a proper <see cref="DateTime"/>
@@ -19,9 +19,9 @@ public class DateTimeHandler : SqlMapper.TypeHandler<DateTime>
 		{
 			DateTime time => time,
 			string str => DateTime.TryParse(str, out var res) ? res : DateTime.MinValue,
-			long val => unixOrigin.AddSeconds(val),
-			int val => unixOrigin.AddSeconds(val),
-			float val => unixOrigin.AddSeconds((long)val),
+			long val => UnixOrigin.AddSeconds(val),
+			int val => UnixOrigin.AddSeconds(val),
+			float val => UnixOrigin.AddSeconds((long)val),
 			_ => DateTime.MinValue
 		};
 	}
@@ -43,8 +43,6 @@ public class DateTimeHandler : SqlMapper.TypeHandler<DateTime>
 /// </summary>
 public class NullableDateTimeHandler : SqlMapper.TypeHandler<DateTime?>
 {
-	private static readonly DateTime unixOrigin = new(1970, 1, 1, 0, 0, 0, 0);
-
 	/// <summary>
 	/// Parses the input value into a proper nullable <see cref="DateTime"/>
 	/// </summary>
@@ -58,9 +56,9 @@ public class NullableDateTimeHandler : SqlMapper.TypeHandler<DateTime?>
 		{
 			DateTime time => time,
 			string str => DateTime.TryParse(str, out var res) ? res : null,
-			long val => unixOrigin.AddSeconds(val),
-			int val => unixOrigin.AddSeconds(val),
-			float val => unixOrigin.AddSeconds((long)val),
+			long val => DateTimeHandler.UnixOrigin.AddSeconds(val),
+			int val => DateTimeHandler.UnixOrigin.AddSeconds(val),
+			float val => DateTimeHandler.UnixOrigin.AddSeconds((long)val),
 			_ => null
 		};
 	}

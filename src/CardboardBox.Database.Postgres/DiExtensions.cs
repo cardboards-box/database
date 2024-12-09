@@ -16,7 +16,7 @@ public static class DiExtensions
 	/// Registers all of the internal services with the configuration builder for Postgres
 	/// </summary>
 	/// <param name="bob">The configuration builder (get it? bob the builder...? Ha ha)</param>
-	/// <param name="init">The initalization configuration action</param>
+	/// <param name="init">The initialization configuration action</param>
 	public static void RegisterInternalServices(ISqlConfigurationBuilder bob, Init? init)
 	{
 		var provider = new ConnectionInitBuilder();
@@ -45,7 +45,7 @@ public static class DiExtensions
 	/// </summary>
 	/// <typeparam name="T">The type of <see cref="ISqlConfig"/> to use</typeparam>
 	/// <param name="builder">The configuration builder to add postgres to</param>
-	/// <param name="init">The optional initalization configuration action</param>
+	/// <param name="init">The optional initialization configuration action</param>
 	/// <returns>The configuration builder for chaining</returns>
 	public static ISqlConfigurationBuilder AddPostgres<T>(this ISqlConfigurationBuilder builder, Init? init = null)
 		where T : class, Config
@@ -55,29 +55,29 @@ public static class DiExtensions
 		return builder;
 	}
 
-	/// <summary>
-	/// Registers postgres with the configuration builder
-	/// </summary>
-	/// <param name="builder">The configuration builder to add postgres to</param>
-	/// <param name="config">The configuration to use for postgres connections</param>
-	/// <param name="init">The optional initalization configuration action</param>
-	/// <returns>The configuration builder for chaining</returns>
-	public static ISqlConfigurationBuilder AddPostgres(this ISqlConfigurationBuilder builder, Config config, Init? init = null)
+    /// <summary>
+    /// Registers postgres with the configuration builder
+    /// </summary>
+    /// <param name="builder">The configuration builder to add postgres to</param>
+    /// <param name="config">The configuration to use for postgres connections</param>
+    /// <param name="init">The optional initialization configuration action</param>
+    /// <returns>The configuration builder for chaining</returns>
+    public static ISqlConfigurationBuilder AddPostgres(this ISqlConfigurationBuilder builder, Config config, Init? init = null)
 	{
 		builder.AddSqlEngine<Con, Service>(config);
 		RegisterInternalServices(builder, init);
 		return builder;
 	}
 
-	/// <summary>
-	/// Registers postgres with the configuration builder
-	/// </summary>
-	/// <param name="builder">The configuration builder to add postgres to</param>
-	/// <param name="connectionString">The connection string to use for postgres connections</param>
-	/// <param name="timeout">The default timeout for queries run against this connection</param>
-	/// <param name="init">The optional initalization configuration action</param>
-	/// <returns>The configuration builder for chaining</returns>
-	public static ISqlConfigurationBuilder AddPostgres(this ISqlConfigurationBuilder builder, string connectionString, int timeout = 0, Init? init = null)
+    /// <summary>
+    /// Registers postgres with the configuration builder
+    /// </summary>
+    /// <param name="builder">The configuration builder to add postgres to</param>
+    /// <param name="connectionString">The connection string to use for postgres connections</param>
+    /// <param name="timeout">The default timeout for queries run against this connection</param>
+    /// <param name="init">The optional initialization configuration action</param>
+    /// <returns>The configuration builder for chaining</returns>
+    public static ISqlConfigurationBuilder AddPostgres(this ISqlConfigurationBuilder builder, string connectionString, int timeout = 0, Init? init = null)
 	{
 		builder.AddSqlEngine<Con, Service>(connectionString, timeout);
 		RegisterInternalServices(builder, init);

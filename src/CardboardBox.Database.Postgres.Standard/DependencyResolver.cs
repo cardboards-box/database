@@ -125,11 +125,11 @@ public interface IDependencyResolver
 
 internal class DependencyResolver : IDependencyResolver
 {
-    private readonly List<Func<IServiceCollection, IConfiguration, Task>> _services = new();
-    private readonly List<Action<IConventionBuilder>> _conventions = new();
-    private readonly List<Action<ITypeMapBuilder>> _dbMapping = new();
-    private readonly List<Action<NpgsqlDataSourceBuilder>> _connections = new();
-    private readonly List<Action<LoggerConfiguration>> _loggers = new();
+    private readonly List<Func<IServiceCollection, IConfiguration, Task>> _services = [];
+    private readonly List<Action<IConventionBuilder>> _conventions = [];
+    private readonly List<Action<ITypeMapBuilder>> _dbMapping = [];
+    private readonly List<Action<NpgsqlDataSourceBuilder>> _connections = [];
+    private readonly List<Action<LoggerConfiguration>> _loggers = [];
 
     public IDependencyResolver AddServices(Action<IServiceCollection> services)
     {

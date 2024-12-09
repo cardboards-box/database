@@ -3,7 +3,7 @@
 using Generation;
 
 /// <summary>
-/// A collection of useful query generation methods with a Postgresql flavour
+/// A collection of useful query generation methods with a PostgresQL flavor
 /// </summary>
 public class PostgresQueryGenerationService : QueryGenerationService
 {

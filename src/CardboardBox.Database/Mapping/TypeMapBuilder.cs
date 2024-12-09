@@ -93,7 +93,7 @@ public interface ITypeMapBuilder
 /// </summary>
 public class TypeMapBuilder : ITypeMapBuilder
 {
-	private readonly List<Fluent> _conventions = new();
+	private readonly List<Fluent> _conventions = [];
 
 	/// <summary>
 	/// Adds a case convention and it's subsequent types

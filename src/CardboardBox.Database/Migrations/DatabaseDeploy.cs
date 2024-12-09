@@ -17,7 +17,14 @@ public interface IDatabaseDeploy
 /// <summary>
 /// Concrete implementation of the <see cref="IDatabaseDeploy"/>
 /// </summary>
-public class DatabaseDeploy : IDatabaseDeploy
+/// <remarks>
+/// Concrete implementation of the <see cref="IDatabaseDeploy"/>
+/// </remarks>
+/// <param name="connection">The database connection</param>
+/// <param name="workingDirectory">The working directory to execute the scripts from</param>
+public class DatabaseDeploy(
+    IDbConnection connection,
+    string? workingDirectory = null) : IDatabaseDeploy
 {
     private const string MANIFEST_EXTENSION = ".manifest.json";
     private const string SQL_EXTENSION = ".sql";
@@ -25,26 +32,13 @@ public class DatabaseDeploy : IDatabaseDeploy
 
     private string? _actualWorkingDir;
 
-    private readonly string? _workingDirectory;
-    private readonly IDbConnection _connection;
+    private readonly string? _workingDirectory = workingDirectory;
+    private readonly IDbConnection _connection = connection;
 
     /// <summary>
     /// The working directory to execute the scripts from
     /// </summary>
     public string WorkingDirectory => DetermineWorkingDirectory();
-
-    /// <summary>
-    /// Concrete implementation of the <see cref="IDatabaseDeploy"/>
-    /// </summary>
-    /// <param name="connection">The database connection</param>
-    /// <param name="workingDirectory">The working directory to execute the scripts from</param>
-    public DatabaseDeploy(
-        IDbConnection connection,
-        string? workingDirectory = null)
-    {
-        _workingDirectory = workingDirectory;
-        _connection = connection;
-    }
 
     internal static string CurrentOsPath(string path)
     {
@@ -91,16 +85,14 @@ public class DatabaseDeploy : IDatabaseDeploy
     internal string[] GetManifestFiles()
     {
         return Directory.Exists(WorkingDirectory)
-            ? Directory.GetFiles(WorkingDirectory, "*" + MANIFEST_EXTENSION, SearchOption.AllDirectories)
-                .OrderBy(t => t)
-                .ToArray()
-            : Array.Empty<string>();
+            ? [.. Directory.GetFiles(WorkingDirectory, "*" + MANIFEST_EXTENSION, SearchOption.AllDirectories).OrderBy(t => t)]
+            : [];
     }
 
-    internal async Task<Manifest[]> GetManifiests()
+    internal async Task<Manifest[]> GetManifests()
     {
         var paths = GetManifestFiles();
-        if (paths.Length <= 0) return Array.Empty<Manifest>();
+        if (paths.Length <= 0) return [];
 
         var manifests = new List<Manifest>();
 
@@ -112,7 +104,7 @@ public class DatabaseDeploy : IDatabaseDeploy
             manifests.Add(manifest);
         }
 
-        return manifests.ToArray();
+        return [..manifests];
     }
 
     internal IEnumerable<string> GetSqlScripts(Manifest manifest)
@@ -151,7 +143,7 @@ public class DatabaseDeploy : IDatabaseDeploy
     /// <returns></returns>
     public async Task ExecuteScripts()
     {
-        var manifests = await GetManifiests();
+        var manifests = await GetManifests();
         if (manifests.Length <= 0) return;
 
         foreach (var man in manifests)

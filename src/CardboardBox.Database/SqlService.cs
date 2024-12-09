@@ -57,7 +57,7 @@ public interface ISqlService
 	/// <param name="timeout">An optional timeout (overrides the <see cref="Timeout"/> for this request)</param>
 	/// <param name="transaction">An optional transaction to run the query within</param>
 	/// <returns>The return result of the query</returns>
-	Task<T> ExecuteScalar<T>(string query, object? parameters = null, int? timeout = null, IDbTransaction? transaction = null);
+	Task<T?> ExecuteScalar<T>(string query, object? parameters = null, int? timeout = null, IDbTransaction? transaction = null);
 
 	/// <summary>
 	/// Provides an easy way of returning multiple POCOs worth of data in one query.
@@ -178,7 +178,7 @@ public abstract class SqlService : ISqlService
 	/// <param name="timeout">An optional timeout (overrides the <see cref="Timeout"/> for this request)</param>
 	/// <param name="transaction">An optional transaction to run the query within</param>
 	/// <returns>The return result of the query</returns>
-	public virtual async Task<T> ExecuteScalar<T>(string query, object? parameters = null, int? timeout = null, IDbTransaction? transaction = null)
+	public virtual async Task<T?> ExecuteScalar<T>(string query, object? parameters = null, int? timeout = null, IDbTransaction? transaction = null)
 	{
 		using var con = await CreateConnection();
 		return await con.ExecuteScalarAsync<T>(query, parameters, transaction, timeout ?? Timeout);

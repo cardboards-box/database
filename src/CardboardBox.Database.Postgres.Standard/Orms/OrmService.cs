@@ -26,21 +26,14 @@ public interface IOrmService
     IOrmMapQueryable<T> For<T>() where T : DbObject;
 }
 
-internal class OrmService : IOrmService
+internal class OrmService(
+    IQueryService query,
+    ISqlService sql,
+    IDbInterjectService? interject = null) : IOrmService
 {
-    public IQueryService Query { get; }
-    public ISqlService Sql { get; }
-    public IDbInterjectService? Interject { get; }
-
-    public OrmService(
-        IQueryService query,
-        ISqlService sql,
-        IDbInterjectService? interject = null)
-    {
-        Query = query;
-        Sql = sql;
-        Interject = interject;
-    }
+    public IQueryService Query { get; } = query;
+    public ISqlService Sql { get; } = sql;
+    public IDbInterjectService? Interject { get; } = interject;
 
     public IOrmMapQueryable<T> For<T>() where T : DbObject => new OrmMap<T>(Query, Sql);
 }

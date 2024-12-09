@@ -32,12 +32,12 @@ public class TestUserPostgres
 
 	public TestUserPostgres() { }
 
-	public TestUserPostgres(string username, string discriminator, string firstname, string lastname)
+	public TestUserPostgres(string username, string discriminator, string firstName, string lastName)
 	{
 		UserName = username;
 		Discriminator = discriminator;
-		FirstName = firstname;
-		LastName = lastname;
+		FirstName = firstName;
+		LastName = lastName;
 	}
 
 	public const string CREATE_TABLE = @"
@@ -56,18 +56,12 @@ CREATE TABLE IF NOT EXISTS postgres_test_users (
 )";
 }
 
-public class PostgresExample
+public class PostgresExample(ISqlService sql, IQueryService query)
 {
-	private readonly ISqlService _sql;
-	private readonly IQueryService _query;
+	private readonly ISqlService _sql = sql;
+	private readonly IQueryService _query = query;
 
-	public PostgresExample(ISqlService sql, IQueryService query)
-	{
-		_sql = sql;
-		_query = query;
-	}
-
-	public async Task Run()
+    public async Task Run()
 	{
 		//Cache your queries!
 		var insertQuery = _query.Insert<TestUserPostgres>();
@@ -130,17 +124,12 @@ public class PostgresExample
 			.GetRequiredService<PostgresExample>();
 	}
 
-	public class ConfigurationSqlConfig : ISqlConfig<NpgsqlConnection>
+	public class ConfigurationSqlConfig(IConfiguration _config) : ISqlConfig<NpgsqlConnection>
 	{
-		private readonly IConfiguration _config;
 
 		public int Timeout { get; set; } = 0;
 
-		public string ConnectionString => _config["Database:Postgres"];
-
-		public ConfigurationSqlConfig(IConfiguration config)
-		{
-			_config = config;
-		}
+		public string ConnectionString => _config["Database:Postgres"]
+			?? throw new NullReferenceException("Config for `Database:Postgres` is null");
 	}
 }

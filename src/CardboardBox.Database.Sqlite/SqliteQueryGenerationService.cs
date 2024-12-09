@@ -3,7 +3,7 @@
 using Generation;
 
 /// <summary>
-/// A collection of useful query generation methods with a SQLite flavour
+/// A collection of useful query generation methods with a SQLite flavor
 /// </summary>
 public class SqliteQueryGenerationService : QueryGenerationService
 {

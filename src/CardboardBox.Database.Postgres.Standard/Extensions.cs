@@ -54,7 +54,7 @@ public static class Extensions
                 registerModel.MakeGenericMethod(cls).Invoke(resolver, null);
 
             foreach (var typ in cls.GetCustomAttributes<TypeAttribute>())
-                registerType.MakeGenericMethod(cls).Invoke(resolver, new object[] { typ.Name });
+                registerType.MakeGenericMethod(cls).Invoke(resolver, [typ.Name]);
         }
 
         return resolver;

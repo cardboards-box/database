@@ -18,7 +18,7 @@ public interface IConnectionInitBuilder
 	IConnectionInitBuilder OnConnect(ConnectAction action);
 
 	/// <summary>
-	/// Configuration actions used to change the behaviour of the underlying <see cref="NpgsqlDataSourceBuilder"/>
+	/// Configuration actions used to change the behavior of the underlying <see cref="NpgsqlDataSourceBuilder"/>
 	/// </summary>
 	/// <param name="action">The configuration action</param>
 	/// <returns>The current builder for chaining</returns>
@@ -45,7 +45,7 @@ public interface IConnectionInitBuilder
 public interface IConnectionInitProvider : IConnectionInitBuilder
 {
 	/// <summary>
-	/// Actions that change the behaviour of the underlying <see cref="NpgsqlDataSourceBuilder"/>
+	/// Actions that change the behavior of the underlying <see cref="NpgsqlDataSourceBuilder"/>
 	/// </summary>
 	BuilderAction[] Builder { get; }
 
@@ -65,24 +65,24 @@ public interface IConnectionInitProvider : IConnectionInitBuilder
 /// </summary>
 public class ConnectionInitBuilder : IConnectionInitProvider
 {
-	private readonly List<BuilderAction> _builder = new();
-	private readonly List<ConnectAction> _connect = new();
-	private readonly List<ConnectAction> _initRun = new();
+	private readonly List<BuilderAction> _builder = [];
+	private readonly List<ConnectAction> _connect = [];
+	private readonly List<ConnectAction> _initRun = [];
 
-	/// <summary>
-	/// Actions that change the behaviour of the underlying <see cref="NpgsqlDataSourceBuilder"/>
-	/// </summary>
-	public BuilderAction[] Builder => _builder.ToArray();
+    /// <summary>
+    /// Actions that change the behavior of the underlying <see cref="NpgsqlDataSourceBuilder"/>
+    /// </summary>
+    public BuilderAction[] Builder => [.. _builder];
 
 	/// <summary>
 	/// Actions that are executed every time a new SQL connection is opened.
 	/// </summary>
-	public ConnectAction[] Connect => _connect.ToArray();
+	public ConnectAction[] Connect => [.. _connect];
 
 	/// <summary>
 	/// Actions that are executed on the first connect only
 	/// </summary>
-	public ConnectAction[] InitialRun => _initRun.ToArray();
+	public ConnectAction[] InitialRun => [.. _initRun];
 
     /// <summary>
     /// Executes the database manifest on the first connection
@@ -105,12 +105,12 @@ public class ConnectionInitBuilder : IConnectionInitProvider
 		return this;
 	}
 
-	/// <summary>
-	/// Configuration actions used to change the behaviour of the underlying <see cref="NpgsqlDataSourceBuilder"/>
-	/// </summary>
-	/// <param name="action">The configuration action</param>
-	/// <returns>The current builder for chaining</returns>
-	public IConnectionInitBuilder OnCreate(BuilderAction action)
+    /// <summary>
+    /// Configuration actions used to change the behavior of the underlying <see cref="NpgsqlDataSourceBuilder"/>
+    /// </summary>
+    /// <param name="action">The configuration action</param>
+    /// <returns>The current builder for chaining</returns>
+    public IConnectionInitBuilder OnCreate(BuilderAction action)
 	{
 		_builder.Add(action);
 		return this;

@@ -133,38 +133,30 @@ public interface IQueryService
 /// <summary>
 /// A service that generates SQL queries based on given POCO types.
 /// </summary>
-public class QueryService : IQueryService
+/// <remarks>
+/// Dependency Injection Constructor
+/// </remarks>
+/// <param name="reflected">The service that handles caching <see cref="ReflectedType"/></param>
+/// <param name="caseChange">The service that handles correcting the case of database fields</param>
+/// <param name="raw">The service that handles generating the raw SQL queries</param>
+/// <param name="config">The service that handles providing the default <see cref="QueryConfig"/>s for query generation</param>
+public class QueryService(
+    IReflectedService reflected,
+    ICaseChangeService caseChange,
+    IQueryGenerationService raw,
+    IQueryConfigProvider config) : IQueryService
 {
-	private readonly IReflectedService _reflected;
-	private readonly ICaseChangeService _caseChange;
-	private readonly IQueryGenerationService _raw;
-	private readonly IQueryConfigProvider _config;
+	private readonly IReflectedService _reflected = reflected;
+	private readonly ICaseChangeService _caseChange = caseChange;
+	private readonly IQueryGenerationService _raw = raw;
+	private readonly IQueryConfigProvider _config = config;
 
-	/// <summary>
-	/// Dependency Injection Constructor
-	/// </summary>
-	/// <param name="reflected">The service that handles caching <see cref="ReflectedType"/></param>
-	/// <param name="caseChange">The service that handles correcting the case of database fields</param>
-	/// <param name="raw">The service that handles generating the raw SQL queries</param>
-	/// <param name="config">The service that handles providing the default <see cref="QueryConfig"/>s for query generation</param>
-	public QueryService(
-		IReflectedService reflected,
-		ICaseChangeService caseChange,
-		IQueryGenerationService raw,
-		IQueryConfigProvider config)
-	{
-		_reflected = reflected;
-		_caseChange = caseChange;
-		_raw = raw;
-		_config = config;
-	}
-
-	/// <summary>
-	/// Gets the <see cref="ReflectedType"/> for the given generic
-	/// </summary>
-	/// <typeparam name="T">The type of class to get</typeparam>
-	/// <returns>The <see cref="ReflectedType"/> for the given generic</returns>
-	public ReflectedType Type<T>() => _reflected.GetType<T>();
+    /// <summary>
+    /// Gets the <see cref="ReflectedType"/> for the given generic
+    /// </summary>
+    /// <typeparam name="T">The type of class to get</typeparam>
+    /// <returns>The <see cref="ReflectedType"/> for the given generic</returns>
+    public ReflectedType Type<T>() => _reflected.GetType<T>();
 
 	/// <summary>
 	/// Generates the <see cref="ColumnConfig"/>s for the given expression builder

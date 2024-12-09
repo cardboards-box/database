@@ -25,7 +25,7 @@ public interface IReflectedService
 /// </summary>
 public class ReflectedService : IReflectedService
 {
-	private readonly Dictionary<string, ReflectedType> _cache = new();
+	private readonly Dictionary<string, ReflectedType> _cache = [];
 
 	/// <summary>
 	/// Gets the <see cref="ReflectedType"/> for the given generic

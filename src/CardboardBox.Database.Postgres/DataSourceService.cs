@@ -1,7 +1,7 @@
 ﻿namespace CardboardBox.Database.Postgres;
 
 /// <summary>
-/// Represents a service used for creating and mangaing the <see cref="NpgsqlDataSource"/>
+/// Represents a service used for creating and managing the <see cref="NpgsqlDataSource"/>
 /// </summary>
 public interface IDataSourceService
 {
@@ -13,33 +13,24 @@ public interface IDataSourceService
 }
 
 /// <summary>
-/// A service used for creating and mangaing the <see cref="NpgsqlDataSource"/>
+/// A service used for creating and managing the <see cref="NpgsqlDataSource"/>
 /// </summary>
-public class DataSourceService : IDataSourceService
+/// <param name="config">The SQL connection configuration</param>
+/// <param name="init">A collection of things to do when the connection is first initialized</param>
+public class DataSourceService(
+    ISqlConfig<NpgsqlConnection> config,
+    IConnectionInitProvider init) : IDataSourceService
 {
-	private readonly ISqlConfig _config;
-	private readonly IConnectionInitProvider _init;
+	private readonly ISqlConfig _config = config;
+	private readonly IConnectionInitProvider _init = init;
 
 	private NpgsqlDataSource? _dataSource;
 
-	/// <summary>
-	/// A service used for creating and mangaing the <see cref="NpgsqlDataSource"/>
-	/// </summary>
-	/// <param name="config">The SQL connection configuration</param>
-	/// <param name="init">A collection of things to do when the connection is first initialized</param>
-	public DataSourceService(
-		ISqlConfig<NpgsqlConnection> config,
-		IConnectionInitProvider init)
-	{
-		_config = config;
-		_init = init;
-	}
-
-	/// <summary>
-	/// Gets or creates the current instance of the <see cref="NpgsqlDataSource"/>
-	/// </summary>
-	/// <returns></returns>
-	public async Task<NpgsqlDataSource> DataSource()
+    /// <summary>
+    /// Gets or creates the current instance of the <see cref="NpgsqlDataSource"/>
+    /// </summary>
+    /// <returns></returns>
+    public async Task<NpgsqlDataSource> DataSource()
 	{
 		if (_dataSource != null) return _dataSource;
 

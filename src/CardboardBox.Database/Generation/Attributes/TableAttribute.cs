@@ -16,7 +16,7 @@ public class TableAttribute : Attribute
 	/// Any prefixes, in order, to apply to the table name.
 	/// If not specified, no prefixes will be applied.
 	/// </summary>
-	public string[] Prefixes { get; set; } = Array.Empty<string>();
+	public string[] Prefixes { get; set; } = [];
 
 	/// <summary>
 	/// Marks a class as representing a database table

@@ -71,32 +71,25 @@ public interface ISqlConfigurationBuilder
 /// <summary>
 /// A builder for configuring how the <see cref="ISqlService"/>s work.
 /// </summary>
-public class SqlConfigurationBuilder : ISqlConfigurationBuilder
+/// <remarks>
+/// A builder for configuring how the <see cref="ISqlService"/>s work.
+/// </remarks>
+/// <param name="services">The service collection to register the services on</param>
+public class SqlConfigurationBuilder(IServiceCollection services) : ISqlConfigurationBuilder
 {
-	private readonly IServiceCollection _services;
-	private readonly TypeMapBuilder _types;
-	private readonly DependencyBuilder _generation;
+	private readonly IServiceCollection _services = services;
+	private readonly TypeMapBuilder _types = new();
+	private readonly DependencyBuilder _generation = new(services);
 
 	private Action? _lastService;
 
-	/// <summary>
-	/// A builder for configuring how the <see cref="ISqlService"/>s work.
-	/// </summary>
-	/// <param name="services">The service collection to register the services on</param>
-	public SqlConfigurationBuilder(IServiceCollection services)
-	{
-		_services = services;
-		_types = new TypeMapBuilder();
-		_generation = new DependencyBuilder(services);
-	}
-
-	/// <summary>
-	/// [INTERNAL] This is used as a pass-through for the <see cref="IServiceCollection"/> for extensions.
-	/// Use at your own risk.
-	/// </summary>
-	/// <param name="services">The service collection configuration action</param>
-	/// <returns>The current builder for chaining</returns>
-	public ISqlConfigurationBuilder AddInternalServices(Action<IServiceCollection> services)
+    /// <summary>
+    /// [INTERNAL] This is used as a pass-through for the <see cref="IServiceCollection"/> for extensions.
+    /// Use at your own risk.
+    /// </summary>
+    /// <param name="services">The service collection configuration action</param>
+    /// <returns>The current builder for chaining</returns>
+    public ISqlConfigurationBuilder AddInternalServices(Action<IServiceCollection> services)
 	{
 		services?.Invoke(_services);
 		return this;

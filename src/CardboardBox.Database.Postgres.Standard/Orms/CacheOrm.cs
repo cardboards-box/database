@@ -4,7 +4,8 @@
 /// Represents a cacheable ORM
 /// </summary>
 /// <typeparam name="T">The type of ORM</typeparam>
-public abstract class CacheOrm<T> : Orm<T> where T : DbObject
+/// <param name="orm">The ORM service</param>
+public abstract class CacheOrm<T>(IOrmService orm) : Orm<T>(orm) where T : DbObject
 {
     private static double _cacheTime = 5;
     private static CacheItem<T[]>? _cache;
@@ -23,12 +24,6 @@ public abstract class CacheOrm<T> : Orm<T> where T : DbObject
     }
 
     /// <summary>
-    /// Default CTOR
-    /// </summary>
-    /// <param name="orm">The ORM service</param>
-    protected CacheOrm(IOrmService orm) : base(orm) { }
-
-    /// <summary>
     /// Clears the cached values
     /// </summary>
     public void ClearCache() => _cache = null;
@@ -40,7 +35,7 @@ public abstract class CacheOrm<T> : Orm<T> where T : DbObject
     public override async Task<T[]> Get()
     {
         _cache ??= new CacheItem<T[]>(base.Get, CacheTime);
-        return await _cache.Get() ?? Array.Empty<T>();
+        return await _cache.Get() ?? [];
     }
 
     /// <summary>

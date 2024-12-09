@@ -24,7 +24,7 @@ public class PaginatedResult<T>
 	/// The results for this page
 	/// </summary>
 	[JsonPropertyName("results")]
-	public T[] Results { get; set; } = Array.Empty<T>();
+	public T[] Results { get; set; } = [];
 
 	/// <summary>
 	/// Represents a paginated result from the database

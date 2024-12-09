@@ -32,7 +32,7 @@ public class GuidArrayHandler : SqlMapper.TypeHandler<Guid[]>
     /// </summary>
     /// <param name="parameter">The data parameter to set</param>
     /// <param name="value">The value to set it to</param>
-    public override void SetValue(IDbDataParameter parameter, Guid[] value)
+    public override void SetValue(IDbDataParameter parameter, Guid[]? value)
     {
         parameter.Value = value;
     }

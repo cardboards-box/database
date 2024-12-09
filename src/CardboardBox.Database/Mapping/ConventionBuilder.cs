@@ -29,12 +29,12 @@ public interface IConventionBuilder
 /// </summary>
 public class ConventionBuilder : IConventionBuilder
 {
-	private readonly List<Fluent> _entityMaps = new();
+	private readonly List<Fluent> _entityMaps = [];
 
 	/// <summary>
 	/// All of the maps this builder created
 	/// </summary>
-	public Fluent[] Maps => _entityMaps.ToArray();
+	public Fluent[] Maps => [.. _entityMaps];
 
 	/// <summary>
 	/// Runs the given action against the configuration builder

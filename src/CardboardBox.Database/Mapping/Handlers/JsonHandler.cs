@@ -10,7 +10,7 @@ public class JsonHandler<T> : SqlMapper.TypeHandler<T>
 	where T : new()
 {
 	/// <summary>
-	/// Parses the input value into a generice type
+	/// Parses the input value into a generic type
 	/// </summary>
 	/// <param name="value">The value to parse</param>
 	/// <returns>The parsed generic array</returns>
@@ -26,7 +26,7 @@ public class JsonHandler<T> : SqlMapper.TypeHandler<T>
 	/// </summary>
 	/// <param name="parameter">The database parameter to set</param>
 	/// <param name="value">The value to set it to</param>
-	public override void SetValue(IDbDataParameter parameter, T value)
+	public override void SetValue(IDbDataParameter parameter, T? value)
 	{
 		if (value != null)
 			parameter.Value = JsonSerializer.Serialize(value);
@@ -40,7 +40,7 @@ public class JsonHandler<T> : SqlMapper.TypeHandler<T>
 public class NullableJsonHandler<T> : SqlMapper.TypeHandler<T?>
 {
 	/// <summary>
-	/// Parses the input value into a generice type
+	/// Parses the input value into a generic type
 	/// </summary>
 	/// <param name="value">The value to parse</param>
 	/// <returns>The parsed generic array</returns>
@@ -67,28 +67,23 @@ public class NullableJsonHandler<T> : SqlMapper.TypeHandler<T?>
 /// Handles mapping generics from string results
 /// </summary>
 /// <typeparam name="T">The type of value</typeparam>
-public class DefaultJsonHandler<T> : SqlMapper.TypeHandler<T>
+/// <remarks>
+/// Handles mapping generics from string results
+/// </remarks>
+/// <param name="default">How to create a default for this type</param>
+public class DefaultJsonHandler<T>(Func<T> @default) : SqlMapper.TypeHandler<T>
 {
-	/// <summary>
-	/// How to create a default for this type
-	/// </summary>
-	public Func<T> Default { get; }
+    /// <summary>
+    /// How to create a default for this type
+    /// </summary>
+    public Func<T> Default { get; } = @default;
 
-	/// <summary>
-	/// Handles mapping generics from string results
-	/// </summary>
-	/// <param name="default">How to create a default for this type</param>
-	public DefaultJsonHandler(Func<T> @default)
-	{
-		Default = @default;
-	}
-
-	/// <summary>
-	/// Parses the input value into a generice type
-	/// </summary>
-	/// <param name="value">The value to parse</param>
-	/// <returns>The parsed generic array</returns>
-	public override T Parse(object value)
+    /// <summary>
+    /// Parses the input value into a generic type
+    /// </summary>
+    /// <param name="value">The value to parse</param>
+    /// <returns>The parsed generic array</returns>
+    public override T Parse(object value)
 	{
 		if (value == null || value is not string str) return Default();
 
@@ -100,7 +95,7 @@ public class DefaultJsonHandler<T> : SqlMapper.TypeHandler<T>
 	/// </summary>
 	/// <param name="parameter">The database parameter to set</param>
 	/// <param name="value">The value to set it to</param>
-	public override void SetValue(IDbDataParameter parameter, T value)
+	public override void SetValue(IDbDataParameter parameter, T? value)
 	{
 		parameter.Value = JsonSerializer.Serialize(value);
 	}

@@ -14,5 +14,5 @@ internal class Manifest
     /// The available scripts to execute
     /// </summary>
     [JsonPropertyName("paths")]
-    public string[] Paths { get; set; } = Array.Empty<string>();
+    public string[] Paths { get; set; } = [];
 }

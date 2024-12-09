@@ -34,7 +34,7 @@ public interface IQueryGenerationService
 	/// Generates a SQL update statement based on the given table, configuration, where clause, and columns
 	/// </summary>
 	/// <param name="table">The name of the table to update</param>
-	/// <param name="config">The configruation for the query generation</param>
+	/// <param name="config">The configuration for the query generation</param>
 	/// <param name="where">The where clause to apply to the update (minus the "WHERE")</param>
 	/// <param name="values">The columns to update and their associated parameters / values</param>
 	/// <returns>The generated SQL UPDATE query</returns>
@@ -50,7 +50,7 @@ public interface IQueryGenerationService
 	string Select(TableConfig table, QueryConfig config, params ColumnConfig[] where);
 
 	/// <summary>
-	/// Generates a SQL delete statement based on the given table, configruation and where columns
+	/// Generates a SQL delete statement based on the given table, configuration and where columns
 	/// </summary>
 	/// <param name="table">The name of the table to delete from</param>
 	/// <param name="config">The configuration for the query generation</param>
@@ -149,7 +149,7 @@ public class QueryGenerationService : IQueryGenerationService
 	/// Generates a SQL update statement based on the given table, configuration, where clause, and columns
 	/// </summary>
 	/// <param name="table">The name of the table to update</param>
-	/// <param name="config">The configruation for the query generation</param>
+	/// <param name="config">The configuration for the query generation</param>
 	/// <param name="where">The where clause to apply to the update (minus the "WHERE")</param>
 	/// <param name="values">The columns to update and their associated parameters / values</param>
 	/// <returns>The generated SQL UPDATE query</returns>
@@ -181,7 +181,7 @@ public class QueryGenerationService : IQueryGenerationService
 	}
 
 	/// <summary>
-	/// Generates a SQL delete statement based on the given table, configruation and where columns
+	/// Generates a SQL delete statement based on the given table, configuration and where columns
 	/// </summary>
 	/// <param name="table">The name of the table to delete from</param>
 	/// <param name="config">The configuration for the query generation</param>

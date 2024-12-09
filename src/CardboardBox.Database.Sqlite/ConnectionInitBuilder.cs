@@ -52,18 +52,18 @@ public interface IConnectionInitProvider : IConnectionInitBuilder
 /// </summary>
 public class ConnectionInitBuilder : IConnectionInitProvider
 {
-	private readonly List<ConnectAction> _connect = new();
-	private readonly List<ConnectAction> _initRun = new();
+	private readonly List<ConnectAction> _connect = [];
+	private readonly List<ConnectAction> _initRun = [];
 
 	/// <summary>
 	/// Actions that are executed every time a new SQL connection is opened.
 	/// </summary>
-	public ConnectAction[] Connect => _connect.ToArray();
+	public ConnectAction[] Connect => [.. _connect];
 
 	/// <summary>
 	/// Actions that are executed on the first connect only
 	/// </summary>
-	public ConnectAction[] InitialRun => _initRun.ToArray();
+	public ConnectAction[] InitialRun => [.. _initRun];
 
     /// <summary>
     /// Executes the database manifest on the first connection

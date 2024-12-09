@@ -52,18 +52,12 @@ CREATE TABLE IF NOT EXISTS users (
 )";
 }
 
-public class SqliteExample
+public class SqliteExample(ISqlService sql, IQueryService query)
 {
-	private readonly ISqlService _sql;
-	private readonly IQueryService _query;
+	private readonly ISqlService _sql = sql;
+	private readonly IQueryService _query = query;
 
-	public SqliteExample(ISqlService sql, IQueryService query)
-	{
-		_sql = sql;
-		_query = query;
-	}
-
-	public async Task Run()
+    public async Task Run()
 	{
 		//Cache your queries!
 		var insertQuery = _query.Insert<TestUserSqlite>();
