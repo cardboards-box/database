@@ -1,8 +1,6 @@
 ﻿global using CardboardBox.Database.Generation;
 global using CardboardBox.Database.Mapping;
 global using CardboardBox.Database.Migrations;
-global using CardboardBox.Http;
-global using CardboardBox.Json;
 
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;

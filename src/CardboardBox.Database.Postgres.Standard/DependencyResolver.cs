@@ -220,11 +220,6 @@ internal class DependencyResolver : IDependencyResolver
     public async Task RegisterServices(IServiceCollection services, IConfiguration config)
     {
         services
-            .AddJson(new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            })
-            .AddCardboardHttp()
             .AddSerilog(c =>
             {
                 _loggers.Each(x => x(c));

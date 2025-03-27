@@ -7,16 +7,16 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Title>Cardboard Box - Database Postgres - Standard</Title>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<Authors>Cardboard</Authors>
 		<Description>
 			The standard way of handling database connections for Postgres and DI extensions
 		</Description>
 		<Copyright>MIT Licensed</Copyright>
-		<PackageProjectUrl>https://github.com/calico-crusade/cardboardbox-database</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/cardboards-box/database</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/calico-crusade/cardboardbox-database</RepositoryUrl>
+		<RepositoryUrl>https://github.com/cardboards-box/database</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Dapper;Postgres;cardboardbox;sql</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -34,7 +34,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="CardboardBox.Http" Version="2.0.2" />
 		<PackageReference Include="CardboardBox.Setup" Version="2.0.0" />
 	</ItemGroup>
 

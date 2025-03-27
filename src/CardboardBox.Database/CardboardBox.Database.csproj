@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Title>Cardboard Box - Database</Title>
 		<Authors>Cardboard</Authors>
-		<Version>2.0.7</Version>
+		<Version>2.0.8</Version>
 		<Description>
 			A wrapper around Dapper that provides easy of use when switching between Database engines.
 			Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
@@ -15,14 +15,14 @@
 		</Description>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/calico-crusade/cardboardbox-database</RepositoryUrl>
+		<RepositoryUrl>https://github.com/cardboards-box/database</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Dapper;Postgres;Mssql;SqlServer;SQLite;cardboardbox;sql</PackageTags>
 		<PackageReleaseNotes>
 			Version 2.0 contains breaking changes compared to 1.0.
 			* CreateConnection is now asynchronous to allow for tasks to be run on first load of the connection.
 		</PackageReleaseNotes>
-		<PackageProjectUrl>https://github.com/calico-crusade/cardboardbox-database</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/cardboards-box/database</PackageProjectUrl>
 		<Copyright>MIT Licensed</Copyright>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
@@ -42,10 +42,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Dapper" Version="2.1.35" />
-	  <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
-	  <PackageReference Include="System.Text.Json" Version="9.0.0" />
+		<PackageReference Include="Dapper" Version="2.1.35" />
+		<PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+		<PackageReference Include="System.Text.Json" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CardboardBox.Database.Abstractions\CardboardBox.Database.Abstractions.csproj" />
 	</ItemGroup>
 	
 </Project>

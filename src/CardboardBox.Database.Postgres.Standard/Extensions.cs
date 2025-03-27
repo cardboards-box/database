@@ -70,38 +70,5 @@ public static class Extensions
     {
         return resolver.Transient<IDbInterjectService, T>();
     }
-
-    /// <summary>
-    /// Downloads the given url and returns the stream and path (works with discord)
-    /// </summary>
-    /// <param name="api">The API service to piggy back off of</param>
-    /// <param name="url">The URL to download from</param>
-    /// <returns>The downloaded stream and path</returns>
-    /// <exception cref="NullReferenceException">Thrown if the request is invalid</exception>
-    public static async Task<(MemoryStream stream, string path)> Download(this IApiService api, string url)
-    {
-        var result = await api.Create(url, "GET")
-            .With(c =>
-            {
-                c.Headers.Add("Cache-Control", "no-cache");
-                c.Headers.Add("Cache-Control", "no-store");
-                c.Headers.Add("Cache-Control", "max-age=1");
-                c.Headers.Add("Cache-Control", "s-maxage=1");
-                c.Headers.Add("Pragma", "no-cache");
-            })
-            .Result() ?? throw new NullReferenceException("Http result was null for down: " + url);
-
-        result.EnsureSuccessStatusCode();
-
-        var headers = result.Content.Headers;
-        var path = headers?.ContentDisposition?.FileName ?? headers?.ContentDisposition?.Parameters?.FirstOrDefault()?.Value ?? "";
-
-        var io = new MemoryStream();
-        using (var stream = await result.Content.ReadAsStreamAsync())
-            await stream.CopyToAsync(io);
-
-        io.Position = 0;
-        return (io, path);
-    }
 }
 
