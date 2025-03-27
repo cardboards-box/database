@@ -80,15 +80,15 @@ public static class Extensions
     /// <exception cref="NullReferenceException">Thrown if the request is invalid</exception>
     public static async Task<(MemoryStream stream, string path)> Download(this IApiService api, string url)
     {
-        var result = await api.Create(url, "GET")
-            .With(c =>
+        var result = await ((IHttpBuilder)api.Create(url, "GET", c => { }, CancellationToken.None)
+            .Message(c =>
             {
                 c.Headers.Add("Cache-Control", "no-cache");
                 c.Headers.Add("Cache-Control", "no-store");
                 c.Headers.Add("Cache-Control", "max-age=1");
                 c.Headers.Add("Cache-Control", "s-maxage=1");
                 c.Headers.Add("Pragma", "no-cache");
-            })
+            }))
             .Result() ?? throw new NullReferenceException("Http result was null for down: " + url);
 
         result.EnsureSuccessStatusCode();

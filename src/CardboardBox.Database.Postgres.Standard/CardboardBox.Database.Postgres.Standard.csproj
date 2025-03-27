@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Title>Cardboard Box - Database Postgres - Standard</Title>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
 		<Authors>Cardboard</Authors>
 		<Description>
 			The standard way of handling database connections for Postgres and DI extensions
@@ -34,8 +34,10 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="CardboardBox.Http" Version="2.0.2" />
+		<PackageReference Include="CardboardBox.Extensions" Version="2.0.2" />
+		<PackageReference Include="CardboardBox.Http" Version="3.0.1" />
 		<PackageReference Include="CardboardBox.Setup" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>

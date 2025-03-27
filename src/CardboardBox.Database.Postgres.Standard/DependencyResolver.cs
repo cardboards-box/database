@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CardboardBox.Extensions;
+using Serilog;
 
 namespace CardboardBox.Database.Postgres.Standard;
 

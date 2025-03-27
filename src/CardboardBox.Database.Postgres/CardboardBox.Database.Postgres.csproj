@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Title>Cardboard Box - Database Postgres</Title>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Authors>Cardboard</Authors>
 		<Description>
 			A wrapper around Dapper and Npgsql that provides easy of use when using Postgres
