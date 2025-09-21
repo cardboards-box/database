@@ -15,10 +15,10 @@
 			Works as a progressive replacement to EF.
 		</Description>
 		<Copyright>MIT Licensed</Copyright>
-		<PackageProjectUrl>https://github.com/calico-crusade/cardboardbox-database</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/cardboards-box/database</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/calico-crusade/cardboardbox-database</RepositoryUrl>
+		<RepositoryUrl>https://github.com/cardboards-box/database</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Dapper;Postgres;cardboardbox;sql</PackageTags>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>

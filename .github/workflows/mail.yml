@@ -28,6 +28,14 @@ jobs:
         with:
           dotnet-version: '9.x'
      
+      - name: Publish Database Abstraction Nuget Package
+        id: publish_nuget_database_abstraction
+        uses: alirezanet/publish-nuget@v3.0.4
+        with:
+          PROJECT_FILE_PATH: src/CardboardBox.Database.Abstraction/CardboardBox.Database.Abstraction.csproj
+          TAG_COMMIT: true
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+     
       - name: Publish Database Nuget Package
         id: publish_nuget_database
         uses: alirezanet/publish-nuget@v3.0.4

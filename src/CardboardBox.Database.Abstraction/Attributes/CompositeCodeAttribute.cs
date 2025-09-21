@@ -1,4 +1,4 @@
-﻿namespace CardboardBox.Database.Postgres.Standard.Attributes;
+﻿namespace CardboardBox.Database;
 
 /// <summary>
 /// These are composite objects that represent the result of a query that has been manipulated in code.

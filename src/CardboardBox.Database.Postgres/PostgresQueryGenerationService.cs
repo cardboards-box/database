@@ -55,6 +55,4 @@ public class PostgresQueryGenerationService : QueryGenerationService
 
 		return string.Format(QUERY, insert, conf, cols);
 	}
-
-
 }

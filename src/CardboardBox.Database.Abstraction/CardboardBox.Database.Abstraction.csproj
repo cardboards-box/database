@@ -5,13 +5,14 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Title>Cardboard Box - Database</Title>
+		<Title>Cardboard Box - Database Abstractions</Title>
 		<Authors>Cardboard</Authors>
 		<Version>2.0.9</Version>
 		<Description>
 			A wrapper around Dapper that provides easy of use when switching between Database engines.
 			Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
 			Works as a progressive replacement to EF.
+			This abstraction library only contains the attributes and interfaces needed to work with the main library.
 		</Description>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -25,6 +26,7 @@
 		<PackageProjectUrl>https://github.com/cardboards-box/database</PackageProjectUrl>
 		<Copyright>MIT Licensed</Copyright>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<RootNamespace>CardboardBox.Database</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -42,13 +44,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Dapper" Version="2.1.66" />
-	  <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.3" />
+		<PackageReference Include="System.Text.Json" Version="9.0.3" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\CardboardBox.Database.Abstraction\CardboardBox.Database.Abstraction.csproj" />
-	</ItemGroup>
-	
 </Project>

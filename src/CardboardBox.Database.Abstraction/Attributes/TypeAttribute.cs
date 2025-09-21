@@ -1,4 +1,4 @@
-﻿namespace CardboardBox.Database.Postgres.Standard.Attributes;
+﻿namespace CardboardBox.Database;
 
 /// <summary>
 /// Represents a table type in Postgres

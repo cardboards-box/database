@@ -1,4 +1,4 @@
-﻿namespace CardboardBox.Database.Postgres.Standard.Attributes;
+﻿namespace CardboardBox.Database;
 
 /// <summary>
 /// Represents a composite object that is the result of a multi-return result query.
