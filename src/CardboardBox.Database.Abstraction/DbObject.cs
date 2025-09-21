@@ -1,4 +1,6 @@
-﻿namespace CardboardBox.Database.Postgres.Standard;
+﻿using System.Text.Json.Serialization;
+
+namespace CardboardBox.Database;
 
 /// <summary>
 /// A model that represents a database object

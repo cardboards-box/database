@@ -7,22 +7,13 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Title>Cardboard Box - Database Abstractions</Title>
 		<Authors>Cardboard</Authors>
-		<Version>2.0.9</Version>
-		<Description>
-			A wrapper around Dapper that provides easy of use when switching between Database engines.
-			Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
-			Works as a progressive replacement to EF.
-			This abstraction library only contains the attributes and interfaces needed to work with the main library.
-		</Description>
+		<Version>2.1.0</Version>
+		<Description>Abstractions for the CardboardBox.Database library.</Description>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/cardboards-box/database</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Dapper;Postgres;Mssql;SqlServer;SQLite;cardboardbox;sql</PackageTags>
-		<PackageReleaseNotes>
-			Version 2.0 contains breaking changes compared to 1.0.
-			* CreateConnection is now asynchronous to allow for tasks to be run on first load of the connection.
-		</PackageReleaseNotes>
 		<PackageProjectUrl>https://github.com/cardboards-box/database</PackageProjectUrl>
 		<Copyright>MIT Licensed</Copyright>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -44,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="9.0.3" />
+		<PackageReference Include="System.Text.Json" Version="9.0.9" />
 	</ItemGroup>
 
 </Project>
