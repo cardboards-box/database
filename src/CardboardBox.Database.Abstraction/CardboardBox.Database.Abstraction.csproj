@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Title>Cardboard Box - Database Abstractions</Title>
 		<Authors>Cardboard</Authors>
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
 		<Description>Abstractions for the CardboardBox.Database library.</Description>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -35,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="9.0.9" />
+		<PackageReference Include="System.Text.Json" Version="10.0.2" />
 	</ItemGroup>
 
 </Project>

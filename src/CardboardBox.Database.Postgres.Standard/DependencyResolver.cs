@@ -122,6 +122,13 @@ public interface IDependencyResolver
     /// <param name="logger">The logger configuration action</param>
     /// <returns></returns>
     IDependencyResolver Logger(Action<LoggerConfiguration> logger);
+
+	/// <summary>
+	/// Sets the default convention for the database mappings
+	/// </summary>
+    /// <param name="convetion">The convention to use</param>
+	/// <returns></returns>
+	IDependencyResolver SetDefaultConvention(Func<ITypeMapBuilder, IConventionBuilder> convetion);
 }
 
 internal class DependencyResolver : IDependencyResolver
@@ -132,7 +139,15 @@ internal class DependencyResolver : IDependencyResolver
     private readonly List<Action<NpgsqlDataSourceBuilder>> _connections = [];
     private readonly List<Action<LoggerConfiguration>> _loggers = [];
 
-    public IDependencyResolver AddServices(Action<IServiceCollection> services)
+    private Func<ITypeMapBuilder, IConventionBuilder>? _defaultConvention;
+
+    public IDependencyResolver SetDefaultConvention(Func<ITypeMapBuilder, IConventionBuilder> convetion)
+    {
+        _defaultConvention = convetion;
+        return this;
+	}
+
+	public IDependencyResolver AddServices(Action<IServiceCollection> services)
     {
         return AddServices((s, _) => services(s));
     }
@@ -246,16 +261,17 @@ internal class DependencyResolver : IDependencyResolver
         services
             .AddSqlService(c =>
             {
-                c.ConfigureGeneration(a => a.WithCamelCaseChange())
-                 .ConfigureTypes(a =>
-                 {
-                     var conv = a.CamelCase();
-                     foreach (var convention in _conventions)
-                         convention(conv);
+                c.ConfigureGeneration(a => a.WithCamelCaseChange());
 
-                     foreach (var mapping in _dbMapping)
-                         mapping(a);
-                 });
+				c.ConfigureTypes(a =>
+                {
+                    var conv = _defaultConvention?.Invoke(a) ?? a.CamelCase();
+                    foreach (var convention in _conventions)
+                        convention(conv);
+
+                    foreach (var mapping in _dbMapping)
+                        mapping(a);
+                });
 
                 c.AddPostgres<SqlConfig>(a =>
                 {

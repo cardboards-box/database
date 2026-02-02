@@ -7,7 +7,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Title>Cardboard Box - Database</Title>
 		<Authors>Cardboard</Authors>
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
 		<Description>
 A wrapper around Dapper that provides easy of use when switching between Database engines.
 Also contains a few useful extensions to Dapper to increase productivity and enable SQL query generation.
@@ -44,7 +44,7 @@ Works as a progressive replacement to EF.
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.1.66" />
 		<PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>

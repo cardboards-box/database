@@ -25,7 +25,7 @@ Works as a progressive replacement to EF.
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
